@@ -1,6 +1,7 @@
 //引用核心模块
 const express = require('express')
 const router = require('./router')
+const bodyParser = require('body-parser')
 //创建实例对象
 const app = express()
 //设置模板引擎
@@ -10,6 +11,9 @@ app.set('views', 'views')
 app.use('/assets', express.static('assets'))
 app.use('/uploads', express.static('uploads'))
 //创建服务器
+app.use(bodyParser.urlencoded({
+    extended: false
+}))
 app.listen(3000, () => {
     console.log('express is running at http://127.0.0.1:3000');
 })
