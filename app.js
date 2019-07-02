@@ -1,6 +1,7 @@
+//引用核心模块
 const express = require('express')
 const router = require('./router')
-
+//创建实例对象
 const app = express()
 //设置模板引擎
 app.set('view engine', 'ejs')
@@ -12,4 +13,5 @@ app.use('/uploads', express.static('uploads'))
 app.listen(3000, () => {
     console.log('express is running at http://127.0.0.1:3000');
 })
+// 注册中间件调用路由方法
 app.use(router)

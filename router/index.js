@@ -1,9 +1,12 @@
 const express = require('express')
+//引入静态页面控制器模块
 const controllerPage = require('../controllers/controllerPage')
-
+const getController = require('../controllers/getController')
+// 创建路由实例
 const router = express.Router()
-
+// 创建路由句柄
 router.get('/', controllerPage.showIndexPage)
+    //前台静态页面渲染
     .get('/detail', controllerPage.showDetailPage)
     .get('/list', controllerPage.showListPage)
 
@@ -23,9 +26,12 @@ router.get('/', controllerPage.showIndexPage)
     .get('/admin/slides', controllerPage.AdminSlidesPage)
     .get('/admin/users', controllerPage.AdminUsersPage)
 
+    // 后台管理页面动态加载
+    .get('/getPostList', getController.getPostList)
 
 
 
 
 
+// 向外暴露数据
 module.exports = router
