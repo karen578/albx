@@ -2,6 +2,7 @@ const express = require('express')
 //引入静态页面控制器模块
 const controllerPage = require('../controllers/controllerPage')
 const getController = require('../controllers/getController')
+const cateController = require('../controllers/cateController')
 // 创建路由实例
 const router = express.Router()
 // 创建路由句柄
@@ -30,7 +31,8 @@ router.get('/', controllerPage.showIndexPage)
     .get('/getPostList', getController.getPostList)
 
 
-
+//页面分页
+// .get('/getAllCateList', cateController.getAllCateList)
 
 
 // 向外暴露数据
