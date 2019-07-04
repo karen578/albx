@@ -3,14 +3,15 @@ $(function () {
     var pagesize = 3
     render()
 
-    function render() {
+    function render(query) {
         $.ajax({
             type: 'get',
             url: '/getPostList',
             //传过去的参数
             data: {
                 pagenum: pagenum,
-                pagesize: pagesize
+                pagesize: pagesize,
+                ...query
             },
             dataType: 'json',
             success: function (res) {
@@ -46,5 +47,54 @@ $(function () {
             }
         })
     }
+    //实现分类函数
+    $(function () {
+        $.ajax({
+            type: 'get',
+            url: '/getAllCateList',
+            dataType: 'json',
+            success: function (res) {
+                if (res.code == 200) {
+                    var str = template("selectTem", res)
+                    $('.cateSelector').html(str)
+                }
+            }
+        })
+    })
+    //实现筛选函数
+    $('.btn-search').on("click", function (event) {
+        event.preventDefault()
+        var query = {}
+        if ($('.cateSelector').val() != 'all') {
+            query.cate = $('.cateSelector').val()
+
+        }
+        if ($('.statusSelector').val() != 'all') {
+            console.log($('.statusSelector').val());
+            query.status = $('.statusSelector').val()
+        }
+        console.log(query);
+        render(query)
+    })
+    //根据id删除数据
+    $('tbody').on('click', '.btnDel', function () {
+        console.log(123);
+        var id = $(this).data('pid')
+        $.ajax({
+            type: 'get',
+            url: '/delPostList',
+            data: {
+                id: id
+            },
+            dataType: 'json',
+            success: function (res) {
+                if (res.code == 200) {
+                    location.href = '/admin/posts'
+                }
+            }
+
+        })
+    })
+
 
 })

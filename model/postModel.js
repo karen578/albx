@@ -17,16 +17,23 @@ const conn = mysql.createConnection({
 module.exports = {
     getPostList(params, callback) {
         //sql语句
-        let sql = ` 
-select posts.id pid,posts.slug,posts.title,posts.created,posts.status,users.id uid,users.nickname,categories.name 
-from posts
-inner join users on posts.user_id = users.id
-inner join categories on posts.category_id = categories.id
-limit ${(params.pagenum-1)*params.pagesize},${params.pagesize}
-    `
+        let sql = `select posts.id pid,posts.slug,posts.title,posts.feature,posts.created,posts.content,posts.status,users.id uid,users.nickname,categories.name
+        from posts
+        inner join users on posts.user_id = users.id
+        inner join categories on posts.category_id = categories.id
+        where 1=1  `
+        if (params.cate) {
+            // 拼接分类条件
+            sql += ` and posts.category_id = ${params.cate} `
+        }
+        if (params.statu) {
+            // 拼接状态条件
+            sql += ` and posts.status = '${params.status}' `
+        }
+        sql += ` order by posts.id desc
+        limit ${(params.pagenum-1)*params.pagesize},${params.pagesize}`
         conn.query(sql, (err, results) => {
             if (err) return callback(err)
-            console.log(results);
             // 重新给sql语句赋值获得总条数
             sql = `
             select count(*) sum from posts
@@ -34,13 +41,19 @@ limit ${(params.pagenum-1)*params.pagesize},${params.pagesize}
             conn.query(sql, (err1, data1) => {
                 if (err1) return callback(err)
                 // 获得的data1的值是一个数组
-                console.log(data1);
                 callback(null, {
                     // 返回一个对象，需要返回查询出的数据，又要返回查询出的总记录数
                     result: results,
                     total: data1[0].sum
                 })
             })
+        })
+    },
+    delPostList(id, callback) {
+        let sql = 'delete from posts where id=?'
+        conn.query(sql, id, (err, result) => {
+            if (err) return callback(err)
+            callback(null)
         })
     }
 }

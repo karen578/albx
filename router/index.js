@@ -29,10 +29,11 @@ router.get('/', controllerPage.showIndexPage)
 
     // 后台管理页面动态加载
     .get('/getPostList', getController.getPostList)
+    .get('/delPostList', getController.delPostList)
 
 
-//页面分页
-// .get('/getAllCateList', cateController.getAllCateList)
+    //页面所有分类
+    .get('/getAllCateList', cateController.getAllCateList)
 
 
 // 向外暴露数据
