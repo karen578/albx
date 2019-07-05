@@ -3,6 +3,8 @@ const express = require('express')
 const controllerPage = require('../controllers/controllerPage')
 const getController = require('../controllers/getController')
 const cateController = require('../controllers/cateController')
+const uploadController = require('../controllers/uploadController')
+const userController = require('../controllers/userController')
 // 创建路由实例
 const router = express.Router()
 // 创建路由句柄
@@ -34,6 +36,14 @@ router.get('/', controllerPage.showIndexPage)
 
     //页面所有分类
     .get('/getAllCateList', cateController.getAllCateList)
+
+    //上传文件
+    .post('/uploadFile', uploadController.uploadFile)
+    //新增数据
+    .post('/addPost', cateController.addPost)
+
+    //登录页面
+    .post('/login', userController.login)
 
 
 // 向外暴露数据

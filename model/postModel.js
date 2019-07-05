@@ -50,6 +50,7 @@ module.exports = {
         })
     },
     delPostList(id, callback) {
+        console.log(id);
         let sql = 'delete from posts where id=?'
         conn.query(sql, id, (err, result) => {
             if (err) return callback(err)

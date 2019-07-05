@@ -8,6 +8,7 @@ $(function () {
             type: 'get',
             url: '/getPostList',
             //传过去的参数
+            // 传入的参数有，页数，一页显示的条数，和刷选时选的值
             data: {
                 pagenum: pagenum,
                 pagesize: pagesize,
@@ -79,7 +80,7 @@ $(function () {
     //根据id删除数据
     $('tbody').on('click', '.btnDel', function () {
         console.log(123);
-        var id = $(this).data('pid')
+        var id = $(this).data('')
         $.ajax({
             type: 'get',
             url: '/delPostList',
@@ -89,7 +90,9 @@ $(function () {
             dataType: 'json',
             success: function (res) {
                 if (res.code == 200) {
-                    location.href = '/admin/posts'
+                    if (window.confirm = '确定删除数据') {
+                        render()
+                    }
                 }
             }
 

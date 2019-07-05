@@ -9,7 +9,6 @@ module.exports = {
         // 利用回调函数，向页面发送查询结果
         console.log(params);
         postModel.getPostList(params, (err, data) => {
-            console.log(err);
             //用res.json可以直接把查询到的数据转换成字符串
             if (err) return res.json({
                 "code": 201,
@@ -24,8 +23,10 @@ module.exports = {
         })
     },
     delPostList(req, res) {
-        var id = req.query
+        //   需要接收传过来的id参数
+        var id = req.query.id
         postModel.delPostList(id, err => {
+            console.log(err);
             if (err) return res.json({
                 "code": 201,
                 "msg": "删除失败"

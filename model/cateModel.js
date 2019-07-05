@@ -16,6 +16,10 @@ module.exports = {
             if (err) return callback(err)
             callback(null, result)
         })
+    },
+    addPost(callback) {
+        let sql = ' '
+
 
 
     }
