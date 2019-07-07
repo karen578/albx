@@ -13,7 +13,7 @@ module.exports = {
         let sql = ' select * from users where email=?'
         conn.query(sql, email, (err, result) => {
             if (err) return callback(err)
-            callback(null, result)
+            callback(null, result[0])
         })
 
     }

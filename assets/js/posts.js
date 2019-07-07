@@ -79,24 +79,25 @@ $(function () {
     })
     //根据id删除数据
     $('tbody').on('click', '.btnDel', function () {
-        console.log(123);
-        var id = $(this).data('')
-        $.ajax({
-            type: 'get',
-            url: '/delPostList',
-            data: {
-                id: id
-            },
-            dataType: 'json',
-            success: function (res) {
-                if (res.code == 200) {
-                    if (window.confirm = '确定删除数据') {
+        if (window.confirm('确定删除数据')) {
+            var id = $(this).data('')
+            $.ajax({
+                type: 'get',
+                url: '/delPostList',
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+                success: function (res) {
+                    if (res.code == 200) {
+
                         render()
                     }
                 }
-            }
 
-        })
+            })
+        }
+
     })
 
 
