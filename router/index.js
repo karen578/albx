@@ -36,6 +36,8 @@ router.get('/', controllerPage.showIndexPage)
     //新增文章数据
     .post('/addPost', getController.addPost)
     .get('/getPostById', getController.getPostById)
+    //编辑文章
+    .post('/editPost', getController.editPost)
 
 
     //页面所有分类

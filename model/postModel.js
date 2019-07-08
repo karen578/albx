@@ -73,5 +73,13 @@ module.exports = {
             // 获得的data1的值是一个数组
             callback(null, result[0])
         })
+    },
+    editPost(obj, callback) {
+        var sql = `update posts set ? where id = ?`
+        conn.query(sql, [obj, obj.id], err => {
+            if (err) return callback(err)
+            callback(null)
+        })
     }
+
 }

@@ -8,7 +8,7 @@ module.exports = {
         let params = req.query
         // console.log(params);
         // 利用回调函数，向页面发送查询结果
-        console.log(params);
+        // console.log(params);
         postModel.getPostList(params, (err, data) => {
             //用res.json可以直接把查询到的数据转换成字符串
             if (err) return res.json({
@@ -73,6 +73,21 @@ module.exports = {
                 "data": data
             })
 
+        })
+    },
+    editPost(req, res) {
+        var obj = req.body
+        postModel.editPost(obj, err => {
+            console.log(err);
+            console.log(obj);
+            if (err) return res.json({
+                code: 201,
+                msg: '编辑失败'
+            })
+            res.json({
+                code: 200,
+                msg: '编辑成功'
+            })
         })
     }
 

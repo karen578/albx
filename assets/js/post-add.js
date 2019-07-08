@@ -44,54 +44,81 @@ $(function () {
 
     })
 
-    // 给保存按钮添加新的
-    $('form').on('submit', function (event) {
-        // 同步数据：将富文本框中的数据与textarea中的数据进行同步--两者同步之后数据会一样
-        CKEDITOR.instances.content.updateElement()
-        event.preventDefault()
-        $.ajax({
-            type: 'post',
-            url: '/addPost',
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function (res) {
-                if (res.code == 200) {
-                    location.href = '/admin/posts'
-                }
-            }
-        })
-    })
+
     //根据id编辑数据
     //先获取id
     var id = location.search.slice(4)
-    $.ajax({
-        type: 'get',
-        url: '/getPostById',
-        data: {
-            id: id
-        },
-        dataType: 'json',
-        success: function (res) {
-            if (res.code == 200) {
-                $('.page-title >h1').text('编辑文章')
-                $('#btnEdit').val('编辑')
-                $('#title').val(res.data.title)
-                $('#content').val(res.data.content)
-                $('#slug').val(res.data.slug)
-                //游览器显示正确的日期需要从后台显示修改
-                $('#created').val(res.data.created)
-                //隐藏域需要继续存储图片的路径
-                $('#usering').val(res.data.feature)
-                //图片也需要显示出来
-                $('.thumbnail').attr("src", '/uploads/' + res.data.feature).show()
-                $('#category_id').val(res.data.category_id)
-                $('#status').val(res.data.status)
-
-
-
+    if (id) {
+        $('#btnEdit').show()
+        $('#btnSaves').hide()
+        $.ajax({
+            type: 'get',
+            url: '/getPostById',
+            data: {
+                id: id
+            },
+            dataType: 'json',
+            success: function (res) {
+                if (res.code == 200) {
+                    $('.page-title >h1').text('编辑文章')
+                    $('#btnEdit').val('编辑')
+                    $('#title').val(res.data.title)
+                    $('#content').val(res.data.content)
+                    $('#slug').val(res.data.slug)
+                    //游览器显示正确的日期需要从后台显示修改
+                    $('#created').val(res.data.created)
+                    //隐藏域需要继续存储图片的路径
+                    $('#usering').val(res.data.feature)
+                    //图片也需要显示出来
+                    $('.thumbnail').attr("src", '/uploads/' + res.data.feature).show()
+                    $('#category_id').val(res.data.category_id)
+                    $('#status').val(res.data.status)
+                }
             }
-        }
-    })
+        })
+        $('#btnEdit').on('click', function (event) {
+            $('[name="id"]').val(id)
+
+            // 同步数据：将富文本框中的数据与textarea中的数据进行同步--两者同步之后数据会一样
+            CKEDITOR.instances.content.updateElement()
+            event.preventDefault()
+            $.ajax({
+                type: 'post',
+                url: '/editPost',
+                data: $('form').serialize(),
+                dataType: 'json',
+                success: function (res) {
+                    if (res.code == 200) {
+                        alert(1)
+                        location.href = '/admin/posts'
+                    }
+                }
+            })
+        })
+    } else {
+        // 给保存按钮添加新的
+        $('#btnEdit').hide()
+        $('#btnSaves').show()
+        $('#btnSaves').on('click', function (event) {
+            // 同步数据：将富文本框中的数据与textarea中的数据进行同步--两者同步之后数据会一样
+            CKEDITOR.instances.content.updateElement()
+            event.preventDefault()
+            $.ajax({
+                type: 'post',
+                url: '/addPost',
+                data: $('form').serialize(),
+                dataType: 'json',
+                success: function (res) {
+                    if (res.code == 200) {
+                        location.href = '/admin/posts'
+                    }
+                }
+            })
+        })
+    }
+
+
+
 
 
 })

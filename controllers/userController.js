@@ -8,7 +8,7 @@ module.exports = {
         let {
             password
         } = req.body
-        console.log(email, password);
+        // console.log(email, password);
         userModel.login(email, (err, data) => {
             //如果没有数据返回
             if (err) {
