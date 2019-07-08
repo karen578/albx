@@ -17,10 +17,5 @@ module.exports = {
             callback(null, result)
         })
     },
-    addPost(callback) {
-        let sql = ' '
 
-
-
-    }
 }

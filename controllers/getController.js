@@ -1,5 +1,6 @@
 //引用其他模块
 const postModel = require('../model/postModel')
+const moment = require('moment')
 //向外暴露数据
 module.exports = {
     getPostList(req, res) {
@@ -36,5 +37,44 @@ module.exports = {
                 "msg": "删除成功"
             })
         })
+    },
+    addPost(req, res) {
+        let obj = req.body
+        obj.id = null
+        obj.views = 0
+        obj.likes = 0
+        obj.user_id = req.session.currentUser.id
+        postModel.addPost(obj, err => {
+            if (err) return res.json({
+                code: 201,
+                msg: '添加失败'
+            })
+            res.json({
+                code: 200,
+                msg: '添加成功'
+            })
+        })
+    },
+    getPostById(req, res) {
+        var {
+            id
+        } = req.query
+
+        postModel.getPostById(id, (err, data) => {
+            if (err) return res.json({
+                "code": 201,
+                "msg": "查询失败"
+            })
+            // 需要把日期转换成游览器需要日期格式传递给前端
+            data.created = moment(data.created).format('YYYY-MM-DDTHH:mm:ss')
+            res.json({
+                "code": 200,
+                "msg": "查询成功",
+                "data": data
+            })
+
+        })
     }
+
+
 }

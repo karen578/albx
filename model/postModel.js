@@ -50,11 +50,28 @@ module.exports = {
         })
     },
     delPostList(id, callback) {
-        console.log(id);
-        let sql = 'delete from posts where id=?'
+        let sql = 'delete from posts where id= ? '
         conn.query(sql, id, (err, result) => {
             if (err) return callback(err)
             callback(null)
+        })
+    },
+    addPost(obj, callback) {
+        let sql = 'insert INTO posts set ?'
+        conn.query(sql, obj, (err) => {
+            if (err) return callback(err)
+            callback(null)
+        })
+
+
+
+    },
+    getPostById(id, callback) {
+        let sql = 'select * from posts where id= ? '
+        conn.query(sql, id, (err, result) => {
+            if (err) return callback(err)
+            // 获得的data1的值是一个数组
+            callback(null, result[0])
         })
     }
 }

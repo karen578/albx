@@ -5,6 +5,7 @@ const getController = require('../controllers/getController')
 const cateController = require('../controllers/cateController')
 const uploadController = require('../controllers/uploadController')
 const userController = require('../controllers/userController')
+const commentController = require('../controllers/commentController')
 // 创建路由实例
 const router = express.Router()
 // 创建路由句柄
@@ -32,6 +33,9 @@ router.get('/', controllerPage.showIndexPage)
     // 后台管理页面动态加载
     .get('/getPostList', getController.getPostList)
     .get('/delPostList', getController.delPostList)
+    //新增文章数据
+    .post('/addPost', getController.addPost)
+    .get('/getPostById', getController.getPostById)
 
 
     //页面所有分类
@@ -39,11 +43,13 @@ router.get('/', controllerPage.showIndexPage)
 
     //上传文件
     .post('/uploadFile', uploadController.uploadFile)
-    //新增数据
-    .post('/addPost', cateController.addPost)
+
 
     //登录页面
     .post('/login', userController.login)
+
+    //获取评论页面
+    .get('/getCommentList', commentController.getCommentList)
 
 
 // 向外暴露数据

@@ -80,7 +80,8 @@ $(function () {
     //根据id删除数据
     $('tbody').on('click', '.btnDel', function () {
         if (window.confirm('确定删除数据')) {
-            var id = $(this).data('')
+            //需要把id获取到
+            var id = $(this).data('id')
             $.ajax({
                 type: 'get',
                 url: '/delPostList',
@@ -99,6 +100,4 @@ $(function () {
         }
 
     })
-
-
 })

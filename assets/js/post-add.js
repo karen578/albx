@@ -56,10 +56,41 @@ $(function () {
             dataType: 'json',
             success: function (res) {
                 if (res.code == 200) {
-                    console.log(res);
+                    location.href = '/admin/posts'
                 }
             }
         })
+    })
+    //根据id编辑数据
+    //先获取id
+    var id = location.search.slice(4)
+    $.ajax({
+        type: 'get',
+        url: '/getPostById',
+        data: {
+            id: id
+        },
+        dataType: 'json',
+        success: function (res) {
+            if (res.code == 200) {
+                $('.page-title >h1').text('编辑文章')
+                $('#btnEdit').val('编辑')
+                $('#title').val(res.data.title)
+                $('#content').val(res.data.content)
+                $('#slug').val(res.data.slug)
+                //游览器显示正确的日期需要从后台显示修改
+                $('#created').val(res.data.created)
+                //隐藏域需要继续存储图片的路径
+                $('#usering').val(res.data.feature)
+                //图片也需要显示出来
+                $('.thumbnail').attr("src", '/uploads/' + res.data.feature).show()
+                $('#category_id').val(res.data.category_id)
+                $('#status').val(res.data.status)
+
+
+
+            }
+        }
     })
 
 

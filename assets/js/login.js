@@ -14,13 +14,17 @@ $(function () {
                 password: password
             },
             beforeSend: function (res) {
-                if (!/\w[@]\w[.]\w{2.3}/.test(email)) {
+                if (!/\w+[@]\w+[.]\w+/.test(email)) {
+                    $('.alert-danger span').text('邮箱错误，请重新输入')
                     $('.alert-danger').fadeIn(500).delay(2000).fadeOut(500)
-                    $('.alert-danger span').text(res.msg)
+
+                    return false
                 }
                 if (password.trim() == '') {
+                    $('.alert-danger span').text('密码错误')
                     $('.alert-danger').fadeIn(500).delay(2000).fadeOut(500)
-                    $('.alert-danger span').text(res.msg)
+
+                    return false
                 }
             },
             dataType: 'json',

@@ -14,17 +14,5 @@ module.exports = {
             })
         })
     },
-    addPost(req, res) {
-        cateModel.addPost(err => {
-            if (err) return res.json({
-                code: 201,
-                msg: '添加失败'
-            })
-            res.json({
-                code: 200,
-                msg: '添加成功',
-                data: data
-            })
-        })
-    }
+
 }
