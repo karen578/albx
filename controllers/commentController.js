@@ -4,7 +4,7 @@ module.exports = {
     getCommentList(req, res) {
         let params = req.query
         commentModel.getCommentList(params, (err, data) => {
-            console.log(data);
+            // console.log(data);
             if (err) {
                 res.json({
                     code: 201,

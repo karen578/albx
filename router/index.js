@@ -42,6 +42,14 @@ router.get('/', controllerPage.showIndexPage)
 
     //页面所有分类
     .get('/getAllCateList', cateController.getAllCateList)
+    //根据id获取分类
+    .get('/getcateById', cateController.getcateById)
+    //根据id删除分类
+    .get('/delcateById', cateController.delcateById)
+    //编辑分类
+    .post('/editcateById', cateController.editcateById)
+    //增加分类
+    .post('/Addcate', cateController.Addcate)
 
     //上传文件
     .post('/uploadFile', uploadController.uploadFile)

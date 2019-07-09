@@ -48,9 +48,12 @@ $(function () {
     //根据id编辑数据
     //先获取id
     var id = location.search.slice(4)
+    //根据id判断文件是保存还是编辑
     if (id) {
+        //编辑两个按钮
         $('#btnEdit').show()
         $('#btnSaves').hide()
+        //编辑按钮先根据id获取数据
         $.ajax({
             type: 'get',
             url: '/getPostById',
@@ -77,8 +80,8 @@ $(function () {
             }
         })
         $('#btnEdit').on('click', function (event) {
+            // 编辑文章也需要根据id编辑，所以需要设置把id设置在隐藏域里面
             $('[name="id"]').val(id)
-
             // 同步数据：将富文本框中的数据与textarea中的数据进行同步--两者同步之后数据会一样
             CKEDITOR.instances.content.updateElement()
             event.preventDefault()
@@ -116,9 +119,5 @@ $(function () {
             })
         })
     }
-
-
-
-
 
 })
