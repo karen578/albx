@@ -6,6 +6,7 @@ const cateController = require('../controllers/cateController')
 const uploadController = require('../controllers/uploadController')
 const userController = require('../controllers/userController')
 const commentController = require('../controllers/commentController')
+const menusController = require('../controllers/menusController')
 // 创建路由实例
 const router = express.Router()
 // 创建路由句柄
@@ -60,6 +61,25 @@ router.get('/', controllerPage.showIndexPage)
 
     //获取评论页面
     .get('/getCommentList', commentController.getCommentList)
+
+
+    //添加菜单
+    .post('/addmenus', menusController.addmenus)
+    .get('/getmenus', menusController.getmenus)
+    //查询尾页数据
+    .get('/getOptions', menusController.getOptions)
+    //更新尾页
+    .post('/updateOptions', menusController.updateOptions)
+    //获取用户信息
+    .get('/getUsers', userController.getUsers)
+    //删除用户信息
+    .get('/delUser', userController.delUser)
+    //添加用户信息
+    .post('/addUsers', userController.addUsers)
+    //根据id查找用户
+    .get('/getUserById', userController.getUserById)
+    //编辑用户
+    .post('/editUsers', userController.editUsers)
 
 
 // 向外暴露数据

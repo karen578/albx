@@ -21,11 +21,11 @@
           <input id="title" class="form-control" name="title" type="text" placeholder="标题">
         </div>
         <div class="form-group">
-          <label for="href">链接</label>
-          <input id="href" class="form-control" name="href" type="text" placeholder="链接">
+          <label for="link">链接</label>
+          <input id="link" class="form-control" name="link" type="text" placeholder="链接">
         </div>
         <div class="form-group">
-          <button class="btn btn-primary" type="submit">添加</button>
+          <input type="button" value="添加" class="btn btn-primary btnAdd">
         </div>
       </form>
     </div>
@@ -82,3 +82,18 @@
 <%- include('./layout/admin_aside.ejs')%>
 
 <%-include('./layout/admin_footer.ejs')%>
+<script src="/assets/vendors/template/template.js"></script>
+<script src="/assets/js/nav-menus.js"></script>
+<script type="text/template" id="menueTemp">
+  {{each data as value index}}
+  <tr>
+      <td class="text-center"><input type="checkbox"></td>
+      <td><i class="fa fa-glass"></i>{{value.text}}</td>
+      <td>{{value.title}}</td>
+      <td>{{value.link}}</td>
+      <td class="text-center">
+        <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
+      </td>
+    </tr>
+{{/each}}
+</script>

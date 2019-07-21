@@ -45,6 +45,98 @@ module.exports = {
                 }
             }
         })
+    },
+    getUsers(req, res) {
+        userModel.getUsers((err, data) => {
+            if (err) {
+                res.json({
+                    code: 201,
+                    msg: "获取用户信息失败"
+                })
+            } else {
+                res.json({
+                    code: 200,
+                    msg: "获取用户信息成功",
+                    data: data
+                })
+            }
+        })
+    },
+    delUser(req, res) {
+        let {
+            id
+        } = req.query
+
+        userModel.delUser(id, err => {
+            if (err) {
+                res.json({
+                    code: 201,
+                    msg: "删除用户信息失败"
+                })
+            } else {
+                res.json({
+                    code: 200,
+                    msg: "删除用户信息成功"
+                })
+            }
+        })
+    },
+    addUsers(req, res) {
+        let obj = req.body
+        // console.log(obj);
+        obj.status = 'unactivated'
+        obj.avatar = '/uploads/avatar.jpg'
+        userModel.addUsers(obj, err => {
+            // console.log(err);
+            if (err) {
+                res.json({
+                    code: 201,
+                    msg: "添加用户信息失败"
+                })
+            } else {
+                res.json({
+                    code: 200,
+                    msg: "添加用户信息成功"
+                })
+            }
+        })
+    },
+    getUserById(req, res) {
+        var {
+            id
+        } = req.query
+        userModel.getUserById(id, (err, data) => {
+            if (err) {
+                res.json({
+                    code: 201,
+                    msg: "获取用户信息失败"
+                })
+            } else {
+                res.json({
+                    code: 200,
+                    msg: "获取用户信息成功",
+                    data: data
+                })
+            }
+
+        })
+    },
+    editUsers(req, res) {
+        var obj = req.body
+        userModel.editUsers(obj, err => {
+            if (err) {
+                res.json({
+                    code: 201,
+                    msg: "编辑用户信息失败"
+                })
+            } else {
+                res.json({
+                    code: 200,
+                    msg: "编辑用户信息成功"
+                })
+            }
+        })
+
     }
 
 }
